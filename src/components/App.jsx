@@ -14,10 +14,18 @@ export const App = () => {
   const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useState(() => {
     const savedLocalContacts = localStorage.getItem('contacts');
-    return savedLocalContacts
+    const parsedContacts = savedLocalContacts
       ? JSON.parse(savedLocalContacts)
-      : defaultContacts;
+      : [];
+    return parsedContacts.length > 0 ? parsedContacts : defaultContacts;
   });
+
+  // useEffect(() => {
+  //   const savedLocalContacts = localStorage.getItem('contacts');
+  //   if (savedLocalContacts !== null) {
+  //     setContacts(JSON.parse(savedLocalContacts));
+  //   }
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
